@@ -1,0 +1,37 @@
+<% uniq_slider_id = "#{request.path}_#{filter.uniq_slider_id}" %>
+<div
+  data-controller="range-slider-filter"
+  data-filter-name="<%= filter.name %>"
+  data-range-slider-filter-min-value="<%= filter.min %>"
+  data-range-slider-filter-max-value="<%= filter.max %>"
+  data-range-slider-filter-suffix-value="<%= filter.suffix %>"
+  data-range-slider-filter-max-word-value="<%= filter.max_word %>"
+  data-range-slider-filter-filter-class-value="<%= filter.class %>"
+  data-range-slider-filter-uniq-slider-id-value="<%= uniq_slider_id %>"
+  data-range-slider-filter-keep-filters-panel-open-value="<%= @resource.keep_filters_panel_open %>"
+>
+  <%= filter_wrapper name: filter.name do %>
+    <div style="margin-top: 15%;">
+      <div id="range-slider-filter-<%= uniq_slider_id %>" class="slider-round"></div>
+    </div>
+    <%= link_to 'url_redirect', request.url, data: { 'range-slider-filter-target': 'urlRedirect', 'turbo-frame': params[:turbo_frame] }, style: 'hidden', class: 'hidden' %>
+  <% end %>
+</div>
+
+<style>
+  .noUi-connect {
+    background: #0586DD;
+  }
+
+  .slider-round {
+    height: 15px;
+  }
+
+  .slider-round .noUi-handle {
+    height: 22px;
+    width: 22px;
+    top: -5px;
+    right: -11px; /* half the width */
+    border-radius: 9px;
+  }
+</style>
