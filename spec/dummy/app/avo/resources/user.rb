@@ -34,6 +34,7 @@ class Avo::Resources::User < Avo::BaseResource
     end
   }
   self.includes = [:posts, :post]
+  self.attachments = [:cv]
   self.devise_password_optional = true
   self.grid_view = {
     card: -> do
@@ -73,6 +74,7 @@ class Avo::Resources::User < Avo::BaseResource
     divider
     action Avo::Actions::Test::NoConfirmationRedirect
     action Avo::Actions::Test::CloseModal
+    action Avo::Actions::Test::DoNothing
     action Avo::Actions::DetachUser
   end
 
