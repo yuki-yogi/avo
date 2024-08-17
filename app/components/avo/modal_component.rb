@@ -1,15 +1,16 @@
 # frozen_string_literal: true
 
-class Avo::ModalComponent < ViewComponent::Base
+class Avo::ModalComponent < Avo::BaseComponent
   renders_one :heading
   renders_one :controls
 
   attr_reader :width
   attr_reader :body_class
 
-  def initialize(width: :md, body_class: nil)
+  def initialize(width: :md, body_class: nil, overflow: :auto)
     @width = width
     @body_class = body_class
+    @overflow = overflow
   end
 
   def width_classes
@@ -23,5 +24,9 @@ class Avo::ModalComponent < ViewComponent::Base
 
   def height_classes
     "max-h-full min-h-1/4 max-h-11/12"
+  end
+
+  def overflow_classes
+    @overflow == :auto ? "overflow-auto" : ""
   end
 end
