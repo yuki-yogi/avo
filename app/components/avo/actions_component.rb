@@ -22,9 +22,7 @@ class Avo::ActionsComponent < Avo::BaseComponent
     Array(exclude).to_set
   end
   prop :resource, _Nilable(Avo::BaseResource)
-  prop :view, _Nilable(Symbol) do |view|
-    view&.to_sym
-  end
+  prop :view, _Nilable(Avo::ViewInquirer)
 
   def after_initialize
     filter_actions
@@ -56,7 +54,7 @@ class Avo::ActionsComponent < Avo::BaseComponent
   private
 
   def on_record_page?
-    @view.in?([:show, :edit, :new])
+    @view.in?(["show", "edit", "new"])
   end
 
   def on_index_page?
@@ -104,6 +102,9 @@ class Avo::ActionsComponent < Avo::BaseComponent
   end
 
   def action_css_class(action)
-    "flex items-center px-4 py-3 w-full font-semibold text-sm hover:bg-primary-100 border-b#{is_disabled?(action) ? " text-gray-500" : " text-black"}"
+    helpers.class_names("flex items-center px-4 py-3 w-full font-semibold text-sm hover:bg-primary-100", {
+      "text-gray-500": is_disabled?(action),
+      "text-black": !is_disabled?(action),
+    })
   end
 end
